@@ -1,0 +1,71 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Student 
+{
+private:
+    int rollNo;
+    string name;
+    string result;
+    float marks[5];
+    float total, percentage;
+
+public:
+
+    void accept(){
+        cout << "Enter Roll Number: ";
+        cin >> rollNo;
+
+        cout << "Enter Name: ";
+        cin.ignore();
+        getline(cin, name);
+
+        cout << "Enter marks of 5 subjects:\n";
+
+        for (int i = 0; i < 5; i++) {
+        
+            cout << "Subject " << i + 1 << ": ";
+            cin >> marks[i];
+        }
+    }
+    void calculate(){
+    
+        total = 0;
+
+        for (int i = 0; i < 5; i++)
+        {
+            total = total + marks[i];
+        }
+
+        percentage = total / 5;
+    }
+    void display() {
+    
+        cout << "\n Student Details \n";
+        cout << "Roll Number : " << rollNo << endl;
+        cout << "Name        : " << name << endl;
+        cout << "Total Marks : " << total << "/500" << endl;
+        cout << "Percentage  : " << percentage << "%" << endl;
+        
+        if (percentage >= 60)
+        cout<<"Result  :First Class";
+        else if (percentage >= 50) 
+        cout<<"Result :Second Class";
+        else if (percentage >= 40) 
+        cout<< "Result :Pass";
+        else 
+        cout<<"Result :Fail";   }
+};
+
+int main()
+{
+    Student s;
+
+    s.accept();
+    s.calculate();
+    s.display();
+
+    return 0;
+}
+     
