@@ -1,0 +1,57 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Book { 
+   private:
+   int id;
+   string name;
+   string writter;
+   float cost;
+
+   static int count;
+
+public:
+    Book(int i= 0, string n = "unknown", string w = "unknown",float c = 0)   
+    {
+      id = i;
+      name = n;
+      writter = w;
+      cost = c;
+
+      count++;
+      cout << "Book Created. Total Books ="<<count<<endl;
+    }
+    Book(const Book & x)
+    {
+      id = x.id;
+      name = x.name;
+      writter = x.writter;
+      cost = x.cost;
+      
+      count++;
+      cout<< "Book Copied. Total Book ="<<count<<endl;
+    }
+    void show()
+    {
+      cout<< " Book Id :" << id<<endl;
+      cout<< "Book name :"<< name<<endl;
+      cout<< "writter :"<< writter<<endl;
+      cout<< "cost :"<< cost<<endl;
+    }
+    ~Book()
+    {
+    count--;
+    cout<< "Book Destroyed. Total Books ="<< count<<endl;
+    }
+   };
+   int Book::count =0;
+   int main ()
+   {
+      Book book1 (101,"c++ Programing", "James Gosling",405);
+      book1.show();
+      Book book2(book1);
+      book2.show();
+
+      return 0;
+   }
