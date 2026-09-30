@@ -1,0 +1,121 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Student
+{
+private:
+    static int count;
+
+public:
+    Student()
+    {
+        count++;
+    }
+
+    static void showCount()
+    {
+        cout << "Total objects created: " << count << endl;
+    }
+};
+int Student::count = 0;
+
+class ClassA;
+class ClassB;
+
+class ClassA
+{
+private:
+    int valueA;
+
+public:
+    ClassA()
+    {
+        valueA = 90;
+    }
+
+    friend void compare(ClassA, ClassB);
+};
+
+class ClassB
+{
+private:
+    int valueB;
+
+public:
+    ClassB()
+    {
+        valueB = 60;
+    }
+
+    friend void compare(ClassA, ClassB);
+};
+void compare(ClassA a, ClassB b)
+{
+    cout << "Value in ClassA: " << a.valueA << endl;
+    cout << "Value in ClassB: " << b.valueB << endl;
+
+    if (a.valueA > b.valueB)
+        cout << "ClassA value is greater" << endl;
+    else if (b.valueB > a.valueA)
+        cout << "ClassB value is greater" << endl;
+    else
+        cout << "Both values are equal" << endl;
+}
+
+class Security
+{
+private:
+    string password;
+    int secretNumber;
+
+public:
+    Security()
+    {
+        password = "myPassword678";
+        secretNumber = 550;
+    }
+    friend class Admin;
+};
+
+class Admin
+{
+public:
+    void showSecurityData(Security s)
+    {
+        cout << "Password: " << s.password << endl;
+        cout << "Secret Number: " << s.secretNumber << endl;
+    }
+};
+
+int main()
+{
+
+    cout << "=== Static Members ===" << endl;
+
+    Student s1;
+    Student s2;
+    Student s3;
+
+    Student::showCount();
+
+    cout << endl;
+
+    cout << "=== Friend Function ===" << endl;
+
+    ClassA a;
+    ClassB b;
+
+    compare(a, b);
+
+    cout << endl;
+
+    cout << "=== Friend Class ===" << endl;
+
+    Security security;
+    Admin admin;
+
+    admin.showSecurityData(security);
+
+    return 0;
+}
